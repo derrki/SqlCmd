@@ -7,6 +7,8 @@ import java.sql.SQLException;
 class DataBaseConnection {
 
     void dBConnect() {
+
+        //десь тут сховано роботу з JDBC !
         try {
 
             Class.forName("org.postgresql.Driver");
@@ -20,4 +22,6 @@ class DataBaseConnection {
             e.printStackTrace();
         }
     }
+
+    void dBInsert(){}
 }
