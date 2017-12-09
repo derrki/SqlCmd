@@ -8,6 +8,7 @@ import java.sql.Statement;
 class DataBaseConnection {
 
     Connection connection = null;
+    Statement stmt = null;
 
     void dBConnect() {
 
@@ -27,16 +28,12 @@ class DataBaseConnection {
             e.printStackTrace();
         }
     }
-
-
     // Створення таблиці
     void dBCreateTable(){
-
-        Statement stmt = null;
         try {
             stmt = connection.createStatement();
 
-            String sql = "CREATE TABLE COMP " +
+            String sql = "CREATE TABLE COMPANY " +
                     "(ID INT PRIMARY KEY     NOT NULL," +
                     " NAME           TEXT    NOT NULL, " +
                     " AGE            INT     NOT NULL, " +
@@ -49,5 +46,33 @@ class DataBaseConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    void dBInsert(){
+        try {
+            connection.setAutoCommit(false);
+            stmt = connection.createStatement();
+            String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
+                    + "VALUES (1, 'Paul', 32, 'California', 20000.00 );";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
+                    + "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
+                    + "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "
+                    + "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
