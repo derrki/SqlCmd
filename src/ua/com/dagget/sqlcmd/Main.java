@@ -5,8 +5,9 @@ public class Main {
 
         DataBaseConnection dataBaseConnection = new DataBaseConnection();
         dataBaseConnection.dBConnect();
-        dataBaseConnection.dBCreateTable();
-        dataBaseConnection.dBInsert();
+        //dataBaseConnection.dBCreateTable();
+        //dataBaseConnection.dBInsert();
+        dataBaseConnection.dBSelect();
 
     }
 }
