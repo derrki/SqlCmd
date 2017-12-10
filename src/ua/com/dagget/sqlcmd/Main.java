@@ -8,6 +8,7 @@ public class Main {
         //dataBaseConnection.dBCreateTable();
         //dataBaseConnection.dBInsert();
         dataBaseConnection.dBSelect();
+        dataBaseConnection.dBUpdate();
 
     }
 }
