@@ -7,8 +7,9 @@ public class Main {
         dataBaseConnection.dBConnect();
         //dataBaseConnection.dBCreateTable();
         //dataBaseConnection.dBInsert();
-        dataBaseConnection.dBSelect();
-        dataBaseConnection.dBUpdate();
+        //dataBaseConnection.dBSelect();
+        //dataBaseConnection.dBUpdate();
+        dataBaseConnection.dBDelete();
 
     }
 }
