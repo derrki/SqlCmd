@@ -16,15 +16,16 @@ class DataBaseConnection implements DataBaseHelper {
 
             //З'єднання з БД
 
-            Class.forName("org.postgresql.Driver");
+            Class.forName(DataBaseContract.DRIVER);
 
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://127.0.0.1:5432/sqlcmd", "postgres",
-                    "postgres");
+                    DataBaseContract.HOST + DataBaseContract.DB_NAME, DataBaseContract.USERNAME,
+                    DataBaseContract.PASSWORD);
             System.out.println("DB connected");
 
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
     }
 
@@ -45,7 +46,8 @@ class DataBaseConnection implements DataBaseHelper {
 
             System.out.println("Table created");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
     }
 
@@ -74,7 +76,8 @@ class DataBaseConnection implements DataBaseHelper {
             stmt.close();
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
 
     }
@@ -102,7 +105,8 @@ class DataBaseConnection implements DataBaseHelper {
             rs.close();
             stmt.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
 
     }
@@ -136,7 +140,7 @@ class DataBaseConnection implements DataBaseHelper {
             rs.close();
             stmt.close();
             connection.close();
-        } catch ( Exception e ) {
+        } catch (SQLException e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
@@ -149,7 +153,7 @@ class DataBaseConnection implements DataBaseHelper {
 
             connection.setAutoCommit(false);
             stmt = connection.createStatement();
-            String sql = "DELETE from COMPANY where ID=2;";
+            String sql = "DELETE from COMPANY where ID=4;";
             stmt.executeUpdate(sql);
             connection.commit();
 
@@ -171,7 +175,7 @@ class DataBaseConnection implements DataBaseHelper {
             }
             rs.close();
             stmt.close();
-        } catch ( Exception e ) {
+        } catch (SQLException e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
