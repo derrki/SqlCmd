@@ -2,13 +2,14 @@ package ua.com.dagget.sqlcmd;
 
 import java.sql.*;
 
-class DataBaseConnection {
+class DataBaseConnection implements DataBaseHelper {
 
     Connection connection = null;
     Statement stmt = null;
 
     //Зєднання з базою
-    void dBConnect() {
+    @Override
+    public void dBConnect() {
 
         //десь тут сховано роботу з JDBC !
         try {
@@ -26,8 +27,10 @@ class DataBaseConnection {
             e.printStackTrace();
         }
     }
+
     //Створення таблиці
-    void dBCreateTable(){
+    @Override
+    public void dBCreateTable(){
         try {
             stmt = connection.createStatement();
 
@@ -45,8 +48,10 @@ class DataBaseConnection {
             e.printStackTrace();
         }
     }
+
     //Вставка даних в таблицю
-    void dBInsert(){
+    @Override
+    public void dBInsert(){
         try {
             connection.setAutoCommit(false);
             stmt = connection.createStatement();
@@ -73,8 +78,10 @@ class DataBaseConnection {
         }
 
     }
+
     //Вибірка даних з таблиці
-    void dBSelect(){
+    @Override
+    public void dBSelect(){
         try {
             connection.setAutoCommit(false);
             stmt = connection.createStatement();
@@ -99,8 +106,10 @@ class DataBaseConnection {
         }
 
     }
+
     //Редагування даних в таблиці
-    void dBUpdate(){
+    @Override
+    public void dBUpdate(){
         try {
 
             stmt = connection.createStatement();
@@ -132,8 +141,10 @@ class DataBaseConnection {
             System.exit(0);
         }
     }
+
     //Видалення даних з таблиці
-    void dBDelete(){
+    @Override
+    public void dBDelete(){
         try {
 
             connection.setAutoCommit(false);
