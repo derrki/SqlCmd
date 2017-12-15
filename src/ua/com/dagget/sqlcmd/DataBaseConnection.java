@@ -12,31 +12,24 @@ class DataBaseConnection implements DataBaseHelper {
 
     private Statement stmt = null;
 
-    public DataBaseConnection(){}
-    public DataBaseConnection(String host, String dbName, String user, String password){
+    public DataBaseConnection(String host, String dbName, String user, String password) {
         this.host = host;
         this.dbName = dbName;
         this.user = user;
         this.password = password;
     }
 
-    Connection getConnection() {
-        return connection;
+    @Override
+    public boolean dBConnect() throws ClassNotFoundException, SQLException {
+
+        if (host.isEmpty() || dbName.isEmpty() || user.isEmpty() || password.isEmpty()) {
+            throw new SQLException("Не всі дані для конекту");
+        }
+            Class.forName(DataBaseContract.DRIVER);
+            connection = DriverManager.getConnection(host + dbName, user, password);
+        return true;
     }
 
-    @Override
-    public void dBConnect() {
-        //десь тут сховано роботу з JDBC !
-        try {
-            Class.forName(DataBaseContract.DRIVER);
-            connection = DriverManager.getConnection(this.host + this.dbName, this.user,
-                    this.password);
-            System.out.println("db ok");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-    }
 
     //Створення таблиці
     @Override

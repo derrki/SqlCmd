@@ -1,8 +1,10 @@
 package ua.com.dagget.sqlcmd;
 
+import java.sql.SQLException;
+
 public interface DataBaseHelper {
     //Зєднання з базою
-    void dBConnect();
+    boolean dBConnect() throws SQLException, ClassNotFoundException;
 
     //Створення таблиці
     void dBCreateTable();
