@@ -3,13 +3,10 @@ package ua.com.dagget.sqlcmd;
 public class Main {
     public static void main(String[] args) {
 
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        DataBaseConnection dataBaseConnection = new DataBaseConnection(DataBaseContract.HOST,
+                DataBaseContract.DB_NAME,
+                DataBaseContract.USERNAME,
+                DataBaseContract.PASSWORD);
         dataBaseConnection.dBConnect();
-        //dataBaseConnection.dBCreateTable();
-        //dataBaseConnection.dBInsert();
-        //dataBaseConnection.dBSelect();
-        //dataBaseConnection.dBUpdate();
-        dataBaseConnection.dBDelete();
-
     }
 }

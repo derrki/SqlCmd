@@ -11,7 +11,10 @@ public class DataBaseConnectionTest {
 
     @Before
     public void setup() {
-        dataBaseConnection = new DataBaseConnection();
+        dataBaseConnection = new DataBaseConnection(DataBaseContract.HOST,
+                DataBaseContract.DB_NAME,
+                DataBaseContract.USERNAME,
+                DataBaseContract.PASSWORD);
         dataBaseConnection.dBConnect();
     }
 

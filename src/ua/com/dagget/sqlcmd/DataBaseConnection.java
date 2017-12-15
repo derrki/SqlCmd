@@ -29,10 +29,9 @@ class DataBaseConnection implements DataBaseHelper {
         //десь тут сховано роботу з JDBC !
         try {
             Class.forName(DataBaseContract.DRIVER);
-            connection = DriverManager.getConnection(
-                    DataBaseContract.HOST + DataBaseContract.DB_NAME, DataBaseContract.USERNAME,
-                    DataBaseContract.PASSWORD);
-
+            connection = DriverManager.getConnection(this.host + this.dbName, this.user,
+                    this.password);
+            System.out.println("db ok");
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
