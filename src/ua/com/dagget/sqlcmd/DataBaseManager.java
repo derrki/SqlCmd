@@ -2,7 +2,7 @@ package ua.com.dagget.sqlcmd;
 
 import java.sql.*;
 
-class DataBaseConnection implements DataBaseHelper {
+class DataBaseManager implements DataBaseHelper {
 
     private Connection connection;
     private String host;
@@ -12,11 +12,16 @@ class DataBaseConnection implements DataBaseHelper {
 
     private Statement stmt = null;
 
-    public DataBaseConnection(String host, String dbName, String user, String password) {
+    public DataBaseManager(String host, String dbName, String user, String password) {
         this.host = host;
         this.dbName = dbName;
         this.user = user;
         this.password = password;
+    }
+
+
+    Connection getConnection(){
+        return connection;
     }
 
     @Override
