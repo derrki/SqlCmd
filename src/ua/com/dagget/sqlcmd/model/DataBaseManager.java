@@ -1,6 +1,11 @@
 package ua.com.dagget.sqlcmd.model;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
+import java.util.Properties;
 
 public class DataBaseManager implements DataBaseHelper {
 
@@ -22,7 +27,7 @@ public class DataBaseManager implements DataBaseHelper {
     @Override
     public boolean dBConnect() {
 
-        System.setProperty("jdbc.drivers", "org.postgresql.Driver");          //Class.forName(DataBaseContract.DRIVER);  більш традиційний метод, але кидає виключну ситуацію яка вимагає обробки
+        System.setProperty("jdbc.drivers", "org.postgresql.Driver");
         try {
             connection = DriverManager.getConnection(host + dbName, user, password);
         } catch (SQLException e) {
@@ -39,8 +44,23 @@ public class DataBaseManager implements DataBaseHelper {
         return true;
     }
 
-    Connection getConnection(){
-        return connection;
+    Connection getConnection() throws IOException, SQLException {
+
+        Properties properties = new Properties();
+        try (InputStream inputStream = Files.newInputStream(Paths.get("database.properties"))) {
+
+            {
+                properties.load(inputStream);
+            }
+        }
+        String drivers = properties.getProperty("jdbc.drivers");
+        if (drivers != null) {
+            System.setProperty("jdbc.drivers", drivers);
+        }
+        String url = properties.getProperty("jdbc.url");
+        String username = properties.getProperty("jdbc.username");
+        String password = properties.getProperty("jdbc.password");
+        return DriverManager.getConnection(url, username, password);
     }
 
     //Створення таблиці
