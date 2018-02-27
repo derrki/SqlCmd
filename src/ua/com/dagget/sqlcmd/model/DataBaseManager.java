@@ -19,11 +19,6 @@ public class DataBaseManager implements DataBaseHelper {
         this.password = password;
     }
 
-
-    Connection getConnection(){
-        return connection;
-    }
-
     @Override
     public boolean dBConnect() {
         if (host.isEmpty() || dbName.isEmpty() || user.isEmpty() || password.isEmpty()) {
@@ -46,6 +41,9 @@ public class DataBaseManager implements DataBaseHelper {
         return true;
     }
 
+    Connection getConnection(){
+        return connection;
+    }
 
     //Створення таблиці
     @Override

@@ -10,10 +10,7 @@ public class Console implements View {
 
     @Override
     public String read() {
-
         Scanner scanner = new Scanner(System.in);
-
-        String line = scanner.nextLine();
-        return line;
+        return scanner.nextLine();
     }
 }
