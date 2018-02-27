@@ -21,22 +21,20 @@ public class DataBaseManager implements DataBaseHelper {
 
     @Override
     public boolean dBConnect() {
-        if (host.isEmpty() || dbName.isEmpty() || user.isEmpty() || password.isEmpty()) {
-            try {
-                throw new SQLException("Не всі дані для конекту");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            Class.forName(DataBaseContract.DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        System.setProperty("jdbc.drivers", "org.postgresql.Driver");          //Class.forName(DataBaseContract.DRIVER);  більш традиційний метод, але кидає виключну ситуацію яка вимагає обробки
         try {
             connection = DriverManager.getConnection(host + dbName, user, password);
         } catch (SQLException e) {
+
+            System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
+        }
+
+        if (connection != null) {
+            System.out.println("You made it, take control your database now!");
+        } else {
+            System.out.println("Failed to make connection!");
         }
         return true;
     }
