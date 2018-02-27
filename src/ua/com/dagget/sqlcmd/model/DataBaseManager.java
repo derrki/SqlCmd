@@ -1,8 +1,8 @@
-package ua.com.dagget.sqlcmd;
+package ua.com.dagget.sqlcmd.model;
 
 import java.sql.*;
 
-class DataBaseManager implements DataBaseHelper {
+public class DataBaseManager implements DataBaseHelper {
 
     private Connection connection;
     private String host;
@@ -25,13 +25,24 @@ class DataBaseManager implements DataBaseHelper {
     }
 
     @Override
-    public boolean dBConnect() throws ClassNotFoundException, SQLException {
-
+    public boolean dBConnect() {
         if (host.isEmpty() || dbName.isEmpty() || user.isEmpty() || password.isEmpty()) {
-            throw new SQLException("Не всі дані для конекту");
+            try {
+                throw new SQLException("Не всі дані для конекту");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        try {
             Class.forName(DataBaseContract.DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
             connection = DriverManager.getConnection(host + dbName, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 

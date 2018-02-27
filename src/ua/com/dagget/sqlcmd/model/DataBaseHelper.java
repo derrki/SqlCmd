@@ -1,4 +1,4 @@
-package ua.com.dagget.sqlcmd;
+package ua.com.dagget.sqlcmd.model;
 
 import java.sql.SQLException;
 
