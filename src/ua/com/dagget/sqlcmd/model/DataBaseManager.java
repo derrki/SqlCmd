@@ -17,37 +17,30 @@ public class DataBaseManager implements DataBaseHelper {
 
     private Statement stmt = null;
 
-    public DataBaseManager(String host, String dbName, String user, String password) {
-        this.host = host;
-        this.dbName = dbName;
-        this.user = user;
-        this.password = password;
+    public DataBaseManager() {
     }
 
     @Override
-    public boolean dBConnect() {
+    public void сonnect(String dataBaseName, String userName, String password) {
 
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName(DataBaseContract.DRIVER);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Where is your PostgreSQL JDBC Driver? Include in your library path!", e);
         }
+
         try {
-            connection = DriverManager.getConnection(host + dbName, user, password);
+            connection = DriverManager.getConnection(DataBaseContract.HOST + dataBaseName, userName, password);
         } catch (SQLException e) {
-            connection = null;
-            System.out.println("Connection Failed! Check output console");
-            throw new RuntimeException( );
-
+            throw new RuntimeException("Не вдалось приєднатись до бази даних. Введені невірні дані, спробуйте ще раз. Ви ввели: " + dataBaseName +" " + userName, e);
         }
 
-        if (connection != null) {
-            System.out.println("You made it, take control your database now!");
-        } else {
-            System.out.println("Failed to make connection!");
+        if (connection != null){
+            System.out.println("connection ne null");
         }
-        return true;
     }
+
+
 
     //повертає конект до бази
   public static Connection getConnectionMyDB() throws IOException, SQLException {
