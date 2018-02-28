@@ -8,9 +8,9 @@ public class Main {
 
         View view = new Console();
         view.write("Привіт юзер!!!");
-        view.write("Ведіть дані для з'єднання з базою в форматі dataBaceName|username|password");
 
         while (true) {
+        view.write("Ведіть дані для з'єднання з базою в форматі dataBaceName|username|password");
             String line = view.read();
             System.out.println(line);
             String[] connectData = line.split("[|]");
@@ -22,7 +22,7 @@ public class Main {
                     dataBaseName,
                     userName,
                     password);
-            Connection connection = dataBaseConnection.getConnection();
+            //Connection connection = dataBaseConnection.getConnection();
 
             dataBaseConnection.dBConnect();
         }

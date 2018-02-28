@@ -27,13 +27,18 @@ public class DataBaseManager implements DataBaseHelper {
     @Override
     public boolean dBConnect() {
 
-        System.setProperty("jdbc.drivers", "org.postgresql.Driver");
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try {
             connection = DriverManager.getConnection(host + dbName, user, password);
         } catch (SQLException e) {
-
+            connection = null;
             System.out.println("Connection Failed! Check output console");
-            e.printStackTrace();
+            throw new RuntimeException( );
+
         }
 
         if (connection != null) {
@@ -44,11 +49,11 @@ public class DataBaseManager implements DataBaseHelper {
         return true;
     }
 
-    Connection getConnection() throws IOException, SQLException {
+    //повертає конект до бази
+  public static Connection getConnectionMyDB() throws IOException, SQLException {
 
         Properties properties = new Properties();
         try (InputStream inputStream = Files.newInputStream(Paths.get("database.properties"))) {
-
             {
                 properties.load(inputStream);
             }
