@@ -3,6 +3,8 @@ package ua.com.dagget.sqlcmd.model;
 import ua.com.dagget.sqlcmd.view.Console;
 import ua.com.dagget.sqlcmd.view.View;
 
+import java.sql.SQLException;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -37,5 +39,18 @@ public class Main {
             }
         }
         view.write("Дані введені вірно!! Працюйте.");
+        while (true){
+            String ex = "exit";
+            view.write("Ведіть команду для виходу з бази");
+            String line = view.read();
+            if(line.equals(ex)){
+                try {
+                    dataBaseManager.exit();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
     }
 }

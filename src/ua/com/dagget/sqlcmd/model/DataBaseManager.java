@@ -40,7 +40,16 @@ public class DataBaseManager implements DataBaseHelper {
         }
     }
 
-
+public void exit() throws SQLException {
+    try {
+        connection.close();
+    } finally {
+        if(connection != null) {
+            connection.close();
+        }
+        System.out.println("connect close");
+    }
+}
 
     //повертає конект до бази
   public static Connection getConnectionMyDB() throws IOException, SQLException {
