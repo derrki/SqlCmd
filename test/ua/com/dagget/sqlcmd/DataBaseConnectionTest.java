@@ -23,7 +23,7 @@ public class DataBaseConnectionTest {
     public void testDataBaseConnection() {
         Boolean connectionActual = null;
 
-            //connectionActual = dataBaseConnection.сonnect();
+            //connectionActual = dataBaseConnection.connect();
 
         //Assert.assertEquals(true, connectionActual);
     }

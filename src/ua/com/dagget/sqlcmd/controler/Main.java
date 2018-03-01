@@ -1,5 +1,6 @@
-package ua.com.dagget.sqlcmd.model;
+package ua.com.dagget.sqlcmd.controler;
 
+import ua.com.dagget.sqlcmd.model.DataBaseManager;
 import ua.com.dagget.sqlcmd.view.Console;
 import ua.com.dagget.sqlcmd.view.View;
 
@@ -32,7 +33,7 @@ public class Main {
                 continue;
             }
             try {
-                dataBaseManager.сonnect(dataBaseName, userName, password);
+                dataBaseManager.connect(dataBaseName, userName, password);
                 break;
             } catch (RuntimeException e) {
                 view.write(e.getMessage());

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public interface DataBaseHelper {
     //Зєднання з базою
-    void сonnect(String dataBaseName, String userName, String password) throws SQLException, ClassNotFoundException;
+    void connect(String dataBaseName, String userName, String password) throws SQLException, ClassNotFoundException;
 
     //Створення таблиці
     void dBCreateTable();

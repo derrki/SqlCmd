@@ -10,18 +10,10 @@ import java.util.Properties;
 public class DataBaseManager implements DataBaseHelper {
 
     private Connection connection;
-    private String host;
-    private String dbName;
-    private String user;
-    private String password;
-
     private Statement stmt = null;
 
-    public DataBaseManager() {
-    }
-
     @Override
-    public void сonnect(String dataBaseName, String userName, String password) {
+    public void connect(String dataBaseName, String userName, String password) {
 
         try {
             Class.forName(DataBaseContract.DRIVER);
@@ -32,42 +24,28 @@ public class DataBaseManager implements DataBaseHelper {
         try {
             connection = DriverManager.getConnection(DataBaseContract.HOST + dataBaseName, userName, password);
         } catch (SQLException e) {
-            throw new RuntimeException("Не вдалось приєднатись до бази даних. Введені невірні дані, спробуйте ще раз. Ви ввели: " + dataBaseName +" " + userName, e);
+            throw new RuntimeException("Не вдалось приєднатись до бази даних. Введені невірні дані, спробуйте ще раз. Ви ввели: " + dataBaseName + " " + userName, e);
         }
 
-        if (connection != null){
+        if (connection != null) {
             System.out.println("connection ne null");
         }
     }
 
-public void exit() throws SQLException {
-    try {
-        connection.close();
-    } finally {
-        if(connection != null) {
+    public void exit() throws SQLException {
+        try {
             connection.close();
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            System.out.println("connect close");
         }
-        System.out.println("connect close");
     }
-}
 
     //повертає конект до бази
-  public static Connection getConnectionMyDB() throws IOException, SQLException {
-
-        Properties properties = new Properties();
-        try (InputStream inputStream = Files.newInputStream(Paths.get("database.properties"))) {
-            {
-                properties.load(inputStream);
-            }
-        }
-        String drivers = properties.getProperty("jdbc.drivers");
-        if (drivers != null) {
-            System.setProperty("jdbc.drivers", drivers);
-        }
-        String url = properties.getProperty("jdbc.url");
-        String username = properties.getProperty("jdbc.username");
-        String password = properties.getProperty("jdbc.password");
-        return DriverManager.getConnection(url, username, password);
+    public Connection getConnect() throws IOException, SQLException {
+        return connection;
     }
 
     //Створення таблиці
