@@ -1,23 +1,21 @@
 package ua.com.dagget.sqlcmd.controler;
 
 import ua.com.dagget.sqlcmd.model.DataBaseHelper;
-import ua.com.dagget.sqlcmd.model.DataBaseManager;
-import ua.com.dagget.sqlcmd.view.Console;
 import ua.com.dagget.sqlcmd.view.View;
 
 import java.sql.SQLException;
 
-public class MainController {
+class MainController {
 
     private View view;
-    private DataBaseHelper dataBaseManager;
+    private DataBaseHelper dataBaseHelper;
 
-    public MainController (View view, DataBaseHelper dataBaseManager) {
+     MainController (View view, DataBaseHelper dataBaseHelper) {
         this.view = view;
-        this.dataBaseManager = dataBaseManager;
+        this.dataBaseHelper = dataBaseHelper;
     }
 
-    public void run(){
+    void run(){
         connectToDB();
     }
 
@@ -42,14 +40,10 @@ public class MainController {
                 continue;
             }
             try {
-                dataBaseManager.connect(dataBaseName, userName, password);
+                dataBaseHelper.connect(dataBaseName, userName, password);
                 break;
             } catch (RuntimeException e) {
                 view.write(e.getMessage());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
         }
         view.write("Дані введені вірно!! Працюйте.");
@@ -62,7 +56,7 @@ public class MainController {
 //            String line = view.read();
 //            if (line.equals(ex)) {
 //                try {
-//                    dataBaseManager.exit();
+//                    dataBaseHelper.exit();
 //                } catch (SQLException e) {
 //                    e.printStackTrace();
 //                }
