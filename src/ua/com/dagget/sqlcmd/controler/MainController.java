@@ -3,20 +3,23 @@ package ua.com.dagget.sqlcmd.controler;
 import ua.com.dagget.sqlcmd.model.DataBaseHelper;
 import ua.com.dagget.sqlcmd.view.View;
 
-import java.sql.SQLException;
-
 class MainController {
 
     private View view;
     private DataBaseHelper dataBaseHelper;
 
-     MainController (View view, DataBaseHelper dataBaseHelper) {
+    MainController(View view, DataBaseHelper dataBaseHelper) {
         this.view = view;
         this.dataBaseHelper = dataBaseHelper;
     }
 
-    void run(){
+    void run() {
+        toHelp();
         connectToDB();
+    }
+
+    private void toHelp() {
+
     }
 
     private void connectToDB() {
@@ -48,20 +51,4 @@ class MainController {
         }
         view.write("Дані введені вірно!! Працюйте.");
     }
-
-//    private void ex() {
-//        while (true) {
-//            String ex = "exit";
-//            view.write("Ведіть команду для виходу з бази");
-//            String line = view.read();
-//            if (line.equals(ex)) {
-//                try {
-//                    dataBaseHelper.exit();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//                break;
-//            }
-//        }
-//    }
 }
