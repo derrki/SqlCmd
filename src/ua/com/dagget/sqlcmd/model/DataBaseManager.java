@@ -49,7 +49,7 @@ public class DataBaseManager implements DataBaseHelper {
         try {
             stmt = connection.createStatement();
 
-            String sql = "CREATE TABLE COMPANY " +
+            String sql = "CREATE TABLE CONTACT " +
                     "(ID INT PRIMARY KEY     NOT NULL," +
                     " NAME           TEXT    NOT NULL, " +
                     " AGE            INT     NOT NULL, " +
