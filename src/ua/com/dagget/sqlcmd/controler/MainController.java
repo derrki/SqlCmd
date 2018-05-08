@@ -1,5 +1,7 @@
 package ua.com.dagget.sqlcmd.controler;
 
+import ua.com.dagget.sqlcmd.controler.comand.Comand;
+import ua.com.dagget.sqlcmd.controler.comand.Exit;
 import ua.com.dagget.sqlcmd.model.DataBaseHelper;
 import ua.com.dagget.sqlcmd.view.View;
 
@@ -7,12 +9,14 @@ import java.util.Arrays;
 
 class MainController {
 
+    private Comand [] commands;
     private View view;
     private DataBaseHelper dataBaseHelper;
 
     MainController(View view, DataBaseHelper dataBaseHelper) {
         this.view = view;
         this.dataBaseHelper = dataBaseHelper;
+        this.commands = new Comand[] {new Exit(view)};
     }
 
     void run() {
@@ -26,8 +30,8 @@ class MainController {
             command = view.read();
             if (command.equals("help")){
                 doHelp();
-            } else if (command.equals("list")){
-                commandList();
+            } else if (commands[0].canProcess(command)){
+                commands[0].process(command);
             }else if(command.equals("exit")){
                 System.exit(1);
             }
