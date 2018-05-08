@@ -2,6 +2,7 @@ package ua.com.dagget.sqlcmd.controler;
 
 import ua.com.dagget.sqlcmd.controler.comand.Comand;
 import ua.com.dagget.sqlcmd.controler.comand.Exit;
+import ua.com.dagget.sqlcmd.controler.comand.Help;
 import ua.com.dagget.sqlcmd.model.DataBaseHelper;
 import ua.com.dagget.sqlcmd.view.View;
 
@@ -9,47 +10,34 @@ import java.util.Arrays;
 
 class MainController {
 
-    private Comand [] commands;
+    private Comand[] commands;
     private View view;
     private DataBaseHelper dataBaseHelper;
 
     MainController(View view, DataBaseHelper dataBaseHelper) {
         this.view = view;
         this.dataBaseHelper = dataBaseHelper;
-        this.commands = new Comand[] {new Exit(view)};
+        this.commands = new Comand[]{new Exit(view), new Help(view)};
     }
 
     void run() {
-
         connectToDB();
         view.write("Введи команду допомоги в форматі 'help', та обери подальші кроки для роботи з програмою.");
 
         String command;
 
-        while (true){
+        while (true) {
             command = view.read();
-            if (command.equals("help")){
-                doHelp();
-            } else if (commands[0].canProcess(command)){
-                commands[0].process(command);
-            }else if(command.equals("exit")){
-                System.exit(1);
+            if (commands[1].canProcess(command)) {
+                commands[1].process();
+            } else if (commands[0].canProcess(command)) {
+                commands[0].process();
             }
         }
     }
 
-    private void doHelp() {
-        commandList();
-    }
 
-    private void  commandList() {
-        String [] commandList = new String[]{"connect - команда для приєднання до бази даних",
-                                            "tables - команда для виводу списку всіх таблиць",
-                                             "exit - вихід з програми"};
-        System.out.println(Arrays.toString(commandList));
-    }
-
-    private void createTable(){
+    private void createTable() {
         dataBaseHelper.dBCreateTable();
     }
 
@@ -75,10 +63,10 @@ class MainController {
                 continue;
             }
             try {
-                if(comand.equals("connect")){
-                dataBaseHelper.connect(dataBaseName, userName, password);
-                break;}
-                else {
+                if (comand.equals("connect")) {
+                    dataBaseHelper.connect(dataBaseName, userName, password);
+                    break;
+                } else {
                     view.write("Невірний ввід команди. Ви ввели " + comand + " а потрібно 'command'. Спробуйте ввести коректну команду.");
                 }
             } catch (RuntimeException e) {
