@@ -1,9 +1,6 @@
 package ua.com.dagget.sqlcmd;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import ua.com.dagget.sqlcmd.model.DataBaseContract;
 import ua.com.dagget.sqlcmd.model.DataBaseManager;
 
@@ -36,7 +33,6 @@ public class DataBaseConnectionTest {
             Assert.fail();
         } catch (RuntimeException e) {
             System.out.println("OK");
-            //OK
         }
     }
 
@@ -47,7 +43,6 @@ public class DataBaseConnectionTest {
             Assert.fail();
         } catch (RuntimeException e) {
             System.out.println("OK");
-            //OK
         }
     }
 
@@ -58,19 +53,13 @@ public class DataBaseConnectionTest {
             Assert.fail();
         } catch (RuntimeException e) {
             System.out.println("OK");
-            //OK
         }
     }
 
-    @Test
+    @Ignore
+    @Test(expected = RuntimeException.class)
     public void test_connection_with_the_database_with_two_correct_input_parameters_databasename_and_username() {
-        try {
-            dataBaseConnection.connect("sqlcmd", "postgres", null);
-            Assert.fail();
-        } catch (RuntimeException e) {
-            System.out.println("OK");
-            //OK
-        }
+        dataBaseConnection.connect("sqlcmd", "postgres", null);
     }
 
     @Test
@@ -80,7 +69,6 @@ public class DataBaseConnectionTest {
             Assert.fail();
         } catch (RuntimeException e) {
             System.out.println("OK");
-            //OK
         }
     }
 
@@ -91,24 +79,16 @@ public class DataBaseConnectionTest {
             Assert.fail();
         } catch (RuntimeException e) {
             System.out.println("OK");
-            //OK
         }
     }
 
     @Test
     public void test_connection_with_the_database_with_all_the_correct_input_parameters() {
-        try {
-            dataBaseConnection.connect("sqlcmd", "postgres", "postgres");
-            Assert.fail();
-        } catch (RuntimeException e) {
-            System.out.println("OK");
-            //OK
-        }
+        dataBaseConnection.connect("sqlcmd", "postgres", "postgres");
     }
 
     @After
     public void tear_down_close_connect_to_db() {
         System.out.println("After");
     }
-
 }

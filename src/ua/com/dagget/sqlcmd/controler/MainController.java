@@ -17,8 +17,9 @@ class MainController {
 
     void run() {
 
-        view.write("Введи команду допомоги в форматі 'help', та обери подальші кроки для роботи з програмою.");
         connectToDB();
+        view.write("Введи команду допомоги в форматі 'help', та обери подальші кроки для роботи з програмою.");
+
         String command;
 
         while (true){
@@ -30,9 +31,6 @@ class MainController {
             }else if(command.equals("exit")){
                 System.exit(1);
             }
-        doHelp();
-
-        createTable();
         }
     }
 
@@ -40,11 +38,11 @@ class MainController {
         commandList();
     }
 
-    private String[]  commandList() {
+    private void  commandList() {
         String [] commandList = new String[]{"connect - команда для приєднання до бази даних",
-                                                "tables - команда для виводу списку всіх таблиць",
+                                            "tables - команда для виводу списку всіх таблиць",
                                              "exit - вихід з програми"};
-        return commandList;
+        System.out.println(Arrays.toString(commandList));
     }
 
     private void createTable(){
