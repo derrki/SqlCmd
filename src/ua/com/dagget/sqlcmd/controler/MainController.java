@@ -17,21 +17,22 @@ class MainController {
     MainController(View view, DataBaseHelper dataBaseHelper) {
         this.view = view;
         this.dataBaseHelper = dataBaseHelper;
-        this.commands = new Comand[]{new Exit(view), new Help(view)};
+        this.commands = new Comand[]{new Exit(view), new Help(view), new Unsupported(view)};
     }
 
     void run() {
         connectToDB();
         view.write("Введи команду допомоги в форматі 'help', та обери подальші кроки для роботи з програмою.");
 
-        String command;
+        String input;
 
         while (true) {
-            command = view.read();
-            if (commands[1].canProcess(command)) {
-                commands[1].process();
-            } else if (commands[0].canProcess(command)) {
-                commands[0].process();
+            input = view.read();
+            for(Comand command: commands){
+            if (command.canProcess(input)) {
+                command.process();
+                break;
+            }
             }
         }
     }
